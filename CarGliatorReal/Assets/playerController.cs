@@ -25,6 +25,9 @@ public class playerController : NetworkBehaviour
     {
         acceleration = Vector3.zero;
         playerCamera = Camera.main;
+        Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
+
     }
 
     public override void OnNetworkSpawn()
