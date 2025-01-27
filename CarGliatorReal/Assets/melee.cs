@@ -17,7 +17,6 @@ public class melee : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
     }
 
     private void OnTriggerStay(Collider other)
@@ -31,6 +30,8 @@ public class melee : MonoBehaviour
 
                 // Apply the knockback force to the enemy's rigidbody
                 other.attachedRigidbody.AddForce(dir.normalized * attackForce, ForceMode.Impulse);
+
+                other.GetComponent<playerManager>().health -= gameObject.GetComponentInParent<playerManager>().damage;
             }
         }
     }
