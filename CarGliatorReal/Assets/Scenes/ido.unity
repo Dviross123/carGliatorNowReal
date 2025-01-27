@@ -930,6 +930,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rb: {fileID: 1528466532}
+  sensetivity: 20
+  rotateSensetivity: 10
+  brakingSpeed: 20
+  stoppingSpeed: 5
 --- !u!54 &1528466532
 Rigidbody:
   m_ObjectHideFlags: 0
