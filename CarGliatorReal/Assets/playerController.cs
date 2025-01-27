@@ -1,14 +1,20 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Unity.Netcode;
+using Cinemachine;
 
-public class playerController : MonoBehaviour
+public class playerController : NetworkBehaviour
 {
     [SerializeField] private Rigidbody rb;
     [SerializeField] private float sensetivity;
     [SerializeField] private float rotateSensetivity;
     [SerializeField] private float brakingSpeed;
     [SerializeField] private float stoppingSpeed;
+    [SerializeField] private CinemachineVirtualCamera vc;
+    [SerializeField] private AudioListener listner;
+
+
     private Camera playerCamera;
     private Vector3 acceleration;
     float mouseX;
@@ -19,6 +25,19 @@ public class playerController : MonoBehaviour
     {
         acceleration = Vector3.zero;
         playerCamera = Camera.main;
+    }
+
+    public override void OnNetworkSpawn()
+    {
+        if (IsOwner)
+        {
+            listner.enabled = true;
+            vc.Priority = 1;
+        }
+        else
+        {
+            vc.Priority = 0;
+        }
     }
 
     void Update()
