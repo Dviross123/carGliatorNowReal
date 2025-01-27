@@ -117,9 +117,9 @@ GameObject:
   m_Component:
   - component: {fileID: 1831164590585188342}
   - component: {fileID: 2929645500127193415}
-  - component: {fileID: -6681937587307832358}
   - component: {fileID: 8119318277233167410}
   - component: {fileID: -6744377521021504227}
+  - component: {fileID: -5329085276034088267}
   m_Layer: 0
   m_Name: temp player
   m_TagString: Untagged
@@ -164,19 +164,6 @@ MonoBehaviour:
   SpawnWithObservers: 1
   DontDestroyWithOwner: 0
   AutoObjectParentSync: 1
---- !u!114 &-6681937587307832358
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8746631996824480463}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 89e081db9577f4c49a7589fb3b11ca8c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  speed: 300
 --- !u!54 &8119318277233167410
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -235,3 +222,20 @@ MonoBehaviour:
   InLocalSpace: 0
   Interpolate: 1
   SlerpPosition: 0
+--- !u!114 &-5329085276034088267
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8746631996824480463}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d99f16869e0bf9a4c9c4a9b3a76abe86, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  rb: {fileID: 0}
+  sensetivity: 20
+  rotateSensetivity: 10
+  brakingSpeed: 20
+  stoppingSpeed: 5
