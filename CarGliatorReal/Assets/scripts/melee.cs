@@ -6,7 +6,7 @@ using UnityEngine;
 public class melee : MonoBehaviour
 {
     [SerializeField] private float attackForce;
-
+    [SerializeField] private Animator animator;
 
     // Start is called before the first frame update
     void Start()
@@ -17,14 +17,20 @@ public class melee : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+
+        if (Input.GetKeyDown(KeyCode.Mouse0))
+        {
+            animator.SetBool("attack", true);
+        }
     }
 
     private void OnTriggerStay(Collider other)
-    {
-        if (Input.GetKeyDown(KeyCode.Mouse0))
+    {   
+        if (other.gameObject.CompareTag("enemy"))
         {
-            if (other.gameObject.CompareTag("enemy"))
+            if(animator.GetBool("attack"))
             {
+                print("hit");
                 // Get the direction the object is facing (forward vector)
                 Vector3 dir = transform.forward;
 

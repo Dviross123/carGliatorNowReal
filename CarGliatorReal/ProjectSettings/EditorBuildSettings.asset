@@ -11,4 +11,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/idoMultiplayer.unity
     guid: 68dfecae915fda842a764608fdc7be66
+  - enabled: 1
+    path: Assets/Scenes/multiLahav.unity
+    guid: a966fc2f915211041a93971e4aab4e39
   m_configObjects: {}
