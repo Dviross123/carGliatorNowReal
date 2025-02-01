@@ -7,12 +7,18 @@ public class melee : MonoBehaviour
 {
     [SerializeField] private float attackForce;
     [SerializeField] private Animator animator;
-    
 
-    private void OnTriggerStay(Collider other)
+
+    public void Update()
     {
         if (Input.GetKeyDown(KeyCode.Mouse0))
         {
+            animator.SetBool("attack", true);
+        }
+    }
+        private void OnTriggerStay(Collider other)
+        {
+
             if (other.gameObject.CompareTag("Player"))
             {
                 // Get the direction the object is facing (forward vector)
@@ -23,7 +29,9 @@ public class melee : MonoBehaviour
 
                 other.GetComponent<playerManager>().health -= gameObject.GetComponentInParent<playerManager>().damage;
             }
-        }
-    }
 
-}
+        }
+
+    } 
+
+
