@@ -641,6 +641,12 @@ MonoBehaviour:
   m_LightCookieSize: {x: 1, y: 1}
   m_LightCookieOffset: {x: 0, y: 0}
   m_SoftShadowQuality: 1
+--- !u!4 &447959876 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: -5913172463669914825, guid: 22e06bd79dd48a848a8668e3e435fd6a,
+    type: 3}
+  m_PrefabInstance: {fileID: 663924516}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &600151633
 GameObject:
   m_ObjectHideFlags: 0
@@ -931,6 +937,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: car with AnimationsNEw (2)
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 22e06bd79dd48a848a8668e3e435fd6a,
+        type: 3}
+      propertyPath: m_TagString
+      value: Player
+      objectReference: {fileID: 0}
     - target: {fileID: 5233112405309087440, guid: 22e06bd79dd48a848a8668e3e435fd6a,
         type: 3}
       propertyPath: m_Name
@@ -938,7 +949,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
-    m_AddedGameObjects: []
+    m_AddedGameObjects:
+    - targetCorrespondingSourceObject: {fileID: -5913172463669914825, guid: 22e06bd79dd48a848a8668e3e435fd6a,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1517174066}
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 22e06bd79dd48a848a8668e3e435fd6a,
         type: 3}
@@ -1818,6 +1833,74 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 663924516}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1517174065
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1517174066}
+  - component: {fileID: 1517174068}
+  - component: {fileID: 1517174067}
+  m_Layer: 0
+  m_Name: melee
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1517174066
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1517174065}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 447959876}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1517174067
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1517174065}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c0dcef55de055954e9a4fdf1faa45244, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  attackForce: 10
+  animator: {fileID: 2052288372}
+--- !u!65 &1517174068
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1517174065}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 0.01, y: 0.019957563, z: 0.017481597}
+  m_Center: {x: 2.2745066e-10, y: 0.0063746916, z: 0.010846856}
 --- !u!1 &1619886756
 GameObject:
   m_ObjectHideFlags: 0
@@ -3344,7 +3427,7 @@ Animator:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2052288368}
-  m_Enabled: 0
+  m_Enabled: 1
   m_Avatar: {fileID: 0}
   m_Controller: {fileID: 9100000, guid: 6c74abccb476ce34c81b5cf358146d95, type: 2}
   m_CullingMode: 0
@@ -3408,7 +3491,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0ab4d688a93871c4eaf68cd0f0232a21, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 1000
+  speed: 600000
   brakeSpeed: 5
   maxSteerAngle: 75
   steerSpeed: 10
@@ -3582,7 +3665,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  GlobalObjectIdHash: 3785392939
+  GlobalObjectIdHash: 903722811
   InScenePlacedSourceGlobalObjectIdHash: 2995362557
   AlwaysReplicateAsRoot: 1
   SynchronizeTransform: 1
