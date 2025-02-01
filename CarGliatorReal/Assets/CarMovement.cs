@@ -84,7 +84,7 @@ public class CarMovement : NetworkBehaviour
             LWheel.localRotation = Quaternion.Euler(WheelXROt, currentSteerAngle/10, 0f);
 
             // Apply smooth car rotation
-            Quaternion targetRotation = Quaternion.Euler(0f, currentSteerAngle * (rb.velocity.magnitude / (speed * 0.004f)), 0f);
+            Quaternion targetRotation = Quaternion.Euler(0f, currentSteerAngle * (rb.velocity.magnitude / (speed * 0.003f)), 0f);
             print(rb.velocity.magnitude);
             rb.MoveRotation(Quaternion.Lerp(rb.rotation, rb.rotation * targetRotation, turnSpeed * Time.deltaTime));
         }
