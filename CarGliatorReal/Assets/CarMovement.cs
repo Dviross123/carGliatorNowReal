@@ -1,8 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Unity.Netcode;
 
-public class CarMovement : MonoBehaviour
+public class CarMovement : NetworkBehaviour
 {
     [Header("Movement Variables")]
     [SerializeField] float speed = 5f;
@@ -32,6 +33,8 @@ public class CarMovement : MonoBehaviour
 
     void Update()
     {
+        if (!IsOwner) return;
+
         GetInput();
         Move();
         RotateWheels();
@@ -77,9 +80,9 @@ public class CarMovement : MonoBehaviour
 
     void RotateWheels()
     {
-        if (Mathf.Abs(rb.velocity.magnitude) > 0.1f)
+        if (rb.velocity.magnitude > 0.1f)
         {
-            WheelXROt += rb.velocity.magnitude * WheelXROtMultiplier * Time.deltaTime;
+            WheelXROt += transform.InverseTransformDirection(rb.velocity).z * WheelXROtMultiplier * Time.deltaTime;
         }
     }
 }
