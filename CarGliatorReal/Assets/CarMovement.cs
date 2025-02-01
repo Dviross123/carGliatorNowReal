@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Unity.Netcode;
+using Cinemachine;
 
 public class CarMovement : NetworkBehaviour
 {
@@ -25,26 +26,40 @@ public class CarMovement : NetworkBehaviour
     [SerializeField] float WheelXROtMultiplier = 0;
     float WheelXROt = 0;
 
-    void Start()
-    {
-      //  if (!IsOwner) return;
-        rb = GetComponent<Rigidbody>();
-        rb.isKinematic = false; //make sure kinematic is false in multiplayer
-        rb.interpolation = RigidbodyInterpolation.Interpolate; // Helps smooth physics movement
-    }
+    [Header("Cam")]
+    [SerializeField] private CinemachineVirtualCamera vc;
+    [SerializeField] private AudioListener listner;
 
-    //public override void OnNetworkSpawn()
+    //void Start()
     //{
     //  //  if (!IsOwner) return;
-    //       // Rigidbody rb = GetComponent<Rigidbody>();
-    //        rb.isKinematic = false;
-    //        rb.interpolation = RigidbodyInterpolation.Interpolate;
+    //    rb = GetComponent<Rigidbody>();
+    //    rb.isKinematic = false; //make sure kinematic is false in multiplayer
+    //    rb.interpolation = RigidbodyInterpolation.Interpolate; // Helps smooth physics movement
     //}
+
+    public override void OnNetworkSpawn()
+    {
+        if (!IsOwner)
+        {
+            vc.Priority = 0;
+            return;
+        }
+        else
+        {
+            rb = GetComponent<Rigidbody>(); // FIX: Assign class-level rb
+            rb.isKinematic = false;
+            rb.interpolation = RigidbodyInterpolation.Interpolate;
+            listner.enabled = true;
+            vc.Priority = 1;
+        }
+    }
+
 
 
     void Update()
     {
-      //  if (!IsOwner) return;
+        if (!IsOwner) return;
 
         GetInput();
         Move();
@@ -97,4 +112,5 @@ public class CarMovement : NetworkBehaviour
             WheelXROt += transform.InverseTransformDirection(rb.velocity).z * WheelXROtMultiplier * Time.deltaTime;
         }
     }
+
 }
