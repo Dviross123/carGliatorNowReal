@@ -3408,12 +3408,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0ab4d688a93871c4eaf68cd0f0232a21, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 1000
+  speed: 600000
   brakeSpeed: 5
   maxSteerAngle: 75
   steerSpeed: 10
   steerReturnSpeed: 5
-  turnSpeed: 50
+  turnSpeed: 100
   RWheel: {fileID: 1514333756}
   LWheel: {fileID: 317972076}
   WheelXROtMultiplier: 15
