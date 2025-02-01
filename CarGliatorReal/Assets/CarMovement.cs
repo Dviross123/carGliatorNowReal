@@ -25,26 +25,28 @@ public class CarMovement : NetworkBehaviour
     [SerializeField] float WheelXROtMultiplier = 0;
     float WheelXROt = 0;
 
-    void Start()
-    {
-      //  if (!IsOwner) return;
-        rb = GetComponent<Rigidbody>();
-        rb.isKinematic = false; //make sure kinematic is false in multiplayer
-        rb.interpolation = RigidbodyInterpolation.Interpolate; // Helps smooth physics movement
-    }
-
-    //public override void OnNetworkSpawn()
+    //void Start()
     //{
     //  //  if (!IsOwner) return;
-    //       // Rigidbody rb = GetComponent<Rigidbody>();
-    //        rb.isKinematic = false;
-    //        rb.interpolation = RigidbodyInterpolation.Interpolate;
+    //    rb = GetComponent<Rigidbody>();
+    //    rb.isKinematic = false; //make sure kinematic is false in multiplayer
+    //    rb.interpolation = RigidbodyInterpolation.Interpolate; // Helps smooth physics movement
     //}
+
+    public override void OnNetworkSpawn()
+    {
+        if (!IsOwner) return;
+
+        rb = GetComponent<Rigidbody>(); // FIX: Assign class-level rb
+        rb.isKinematic = false;
+        rb.interpolation = RigidbodyInterpolation.Interpolate;
+    }
+
 
 
     void Update()
     {
-      //  if (!IsOwner) return;
+        if (!IsOwner) return;
 
         GetInput();
         Move();
@@ -84,7 +86,7 @@ public class CarMovement : NetworkBehaviour
             LWheel.localRotation = Quaternion.Euler(WheelXROt, currentSteerAngle/10, 0f);
 
             // Apply smooth car rotation
-            Quaternion targetRotation = Quaternion.Euler(0f, currentSteerAngle * (rb.velocity.magnitude / (speed * 0.004f)), 0f);
+            Quaternion targetRotation = Quaternion.Euler(0f, currentSteerAngle * (rb.velocity.magnitude / (speed * 0.003f)), 0f);
             print(rb.velocity.magnitude);
             rb.MoveRotation(Quaternion.Lerp(rb.rotation, rb.rotation * targetRotation, turnSpeed * Time.deltaTime));
         }
@@ -97,4 +99,5 @@ public class CarMovement : NetworkBehaviour
             WheelXROt += transform.InverseTransformDirection(rb.velocity).z * WheelXROtMultiplier * Time.deltaTime;
         }
     }
+
 }
