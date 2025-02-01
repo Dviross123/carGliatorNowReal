@@ -27,13 +27,24 @@ public class CarMovement : NetworkBehaviour
 
     void Start()
     {
+      //  if (!IsOwner) return;
         rb = GetComponent<Rigidbody>();
+        rb.isKinematic = false; //make sure kinematic is false in multiplayer
         rb.interpolation = RigidbodyInterpolation.Interpolate; // Helps smooth physics movement
     }
 
+    //public override void OnNetworkSpawn()
+    //{
+    //  //  if (!IsOwner) return;
+    //       // Rigidbody rb = GetComponent<Rigidbody>();
+    //        rb.isKinematic = false;
+    //        rb.interpolation = RigidbodyInterpolation.Interpolate;
+    //}
+
+
     void Update()
     {
-        if (!IsOwner) return;
+      //  if (!IsOwner) return;
 
         GetInput();
         Move();
