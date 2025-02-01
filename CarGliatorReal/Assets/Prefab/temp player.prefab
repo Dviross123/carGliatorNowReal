@@ -62,7 +62,7 @@ Transform:
   m_GameObject: {fileID: 3271002089618700532}
   serializedVersion: 2
   m_LocalRotation: {x: 0.20257059, y: -9.681443e-10, z: 2.0026959e-10, w: 0.9792677}
-  m_LocalPosition: {x: 0, y: 14.47, z: -17.260002}
+  m_LocalPosition: {x: 0, y: 13.9470005, z: -17.26}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -327,7 +327,7 @@ Transform:
   m_GameObject: {fileID: 7627779269294237422}
   serializedVersion: 2
   m_LocalRotation: {x: 0.20257054, y: -7.558145e-10, z: -8.261757e-10, w: 0.9792677}
-  m_LocalPosition: {x: 0, y: 14.47, z: -17.260002}
+  m_LocalPosition: {x: 0, y: 13.9470005, z: -17.26}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -352,8 +352,8 @@ MonoBehaviour:
   m_StreamingVersion: 20170927
   m_Priority: 10
   m_StandbyUpdate: 2
-  m_LookAt: {fileID: 0}
-  m_Follow: {fileID: 0}
+  m_LookAt: {fileID: 2677122231883540795}
+  m_Follow: {fileID: 2677122231883540795}
   m_Lens:
     FieldOfView: 60
     OrthographicSize: 5
@@ -419,7 +419,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  GlobalObjectIdHash: 3785392939
+  GlobalObjectIdHash: 742748034
   InScenePlacedSourceGlobalObjectIdHash: 2995362557
   AlwaysReplicateAsRoot: 1
   SynchronizeTransform: 1
@@ -623,6 +623,8 @@ MonoBehaviour:
   RWheel: {fileID: 4142472953358442205}
   LWheel: {fileID: 4816517548481779745}
   WheelXROtMultiplier: 15
+  vc: {fileID: 9182123484159366653}
+  listner: {fileID: 2431992202385244508}
 --- !u!54 &2475946879953876248
 Rigidbody:
   m_ObjectHideFlags: 0

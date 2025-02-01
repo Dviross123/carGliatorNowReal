@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Unity.Netcode;
+using Cinemachine;
 
 public class CarMovement : NetworkBehaviour
 {
@@ -25,6 +26,10 @@ public class CarMovement : NetworkBehaviour
     [SerializeField] float WheelXROtMultiplier = 0;
     float WheelXROt = 0;
 
+    [Header("Cam")]
+    [SerializeField] private CinemachineVirtualCamera vc;
+    [SerializeField] private AudioListener listner;
+
     //void Start()
     //{
     //  //  if (!IsOwner) return;
@@ -35,11 +40,19 @@ public class CarMovement : NetworkBehaviour
 
     public override void OnNetworkSpawn()
     {
-        if (!IsOwner) return;
-
-        rb = GetComponent<Rigidbody>(); // FIX: Assign class-level rb
-        rb.isKinematic = false;
-        rb.interpolation = RigidbodyInterpolation.Interpolate;
+        if (!IsOwner)
+        {
+            vc.Priority = 0;
+            return;
+        }
+        else
+        {
+            rb = GetComponent<Rigidbody>(); // FIX: Assign class-level rb
+            rb.isKinematic = false;
+            rb.interpolation = RigidbodyInterpolation.Interpolate;
+            listner.enabled = true;
+            vc.Priority = 1;
+        }
     }
 
 
