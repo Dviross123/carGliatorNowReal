@@ -22,7 +22,7 @@ public class playerManager : MonoBehaviour
     {
         if(health <= 0)
         {
-            Destroy(gameObject);
+            print("dead");
         }
     }
     private void OnCollisionEnter(Collision collision)
