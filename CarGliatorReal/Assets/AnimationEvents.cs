@@ -15,7 +15,7 @@ public class AnimationEvents : NetworkBehaviour
         GetComponent<melee>().canDamage = true;
     }
 
-    [ServerRpc]
+    [ServerRpc(RequireOwnership = false)]
     void MakeParticlesServerRpc()
     {
         GameObject spawnDustPs =  Instantiate(dust, transform.position, quaternion.identity);
