@@ -87,7 +87,7 @@ public class CarMovement : NetworkBehaviour
         {
             if (Mathf.Abs(horizontalInput) > 0.1f)
             {
-                currentSteerAngle = Mathf.Lerp(currentSteerAngle, maxSteerAngle * horizontalInput, steerSpeed * Time.deltaTime);
+                currentSteerAngle = Mathf.Lerp(currentSteerAngle, maxSteerAngle * horizontalInput * verticalInput, steerSpeed * Time.deltaTime);
             }
             else
             {

@@ -18,7 +18,7 @@ public class AnimationEvents : NetworkBehaviour
     [ServerRpc(RequireOwnership = false)]
     void MakeParticlesServerRpc()
     {
-        GameObject spawnDustPs =  Instantiate(dust, transform.position, quaternion.identity);
+        GameObject spawnDustPs =  Instantiate(dust, transform.position + new Vector3(0,0,11), quaternion.identity);
         spawnDustPs.GetComponent<NetworkObject>().Spawn(true);
         
     }
