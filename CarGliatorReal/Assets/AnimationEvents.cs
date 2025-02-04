@@ -8,5 +8,6 @@ public class AnimationEvents : MonoBehaviour
     {
         Animator anim= GetComponent<Animator>();
         anim.SetBool(boolNaME, false);
+        GetComponent<melee>().canDamage = true;
     }
 }

@@ -8,7 +8,7 @@ public class melee : NetworkBehaviour
 {
     [SerializeField] private float attackForce;
     [SerializeField] private Animator animator;
-
+    public bool canDamage = true;
 
     public void Update()
     {
@@ -24,8 +24,9 @@ public class melee : NetworkBehaviour
         {
             if (!IsOwner) return;
     
-            if (other.gameObject.CompareTag("Player"))
+            if (other.gameObject.CompareTag("Player") && canDamage)
             {
+            canDamage = false;
                 print("hit");
                 // Get the direction the object is facing (forward vector)
                 Vector3 dir = transform.forward;

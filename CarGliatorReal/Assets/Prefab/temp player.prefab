@@ -368,7 +368,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c0dcef55de055954e9a4fdf1faa45244, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  attackForce: 10
+  attackForce: 50
   animator: {fileID: 754869801014127031}
 --- !u!1 &7627779269294237422
 GameObject:
@@ -796,7 +796,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3345291413318824833}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c0dcef55de055954e9a4fdf1faa45244, type: 3}
   m_Name: 
