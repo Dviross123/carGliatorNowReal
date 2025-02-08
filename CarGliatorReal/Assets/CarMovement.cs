@@ -30,13 +30,21 @@ public class CarMovement : NetworkBehaviour
     [SerializeField] private CinemachineVirtualCamera vc;
     [SerializeField] private AudioListener listner;
 
-    //void Start()
-    //{
-    //  //  if (!IsOwner) return;
-    //    rb = GetComponent<Rigidbody>();
-    //    rb.isKinematic = false; //make sure kinematic is false in multiplayer
-    //    rb.interpolation = RigidbodyInterpolation.Interpolate; // Helps smooth physics movement
-    //}
+    
+    [SerializeField] private ParticleSystem firePSleft;
+    [SerializeField] private ParticleSystem firePSright;
+
+    RpcFunctions rpcFunctions;
+    void Start()
+    {
+        ////  if (!IsOwner) return;
+        //rb = GetComponent<Rigidbody>();
+        //rb.isKinematic = false; //make sure kinematic is false in multiplayer
+        //rb.interpolation = RigidbodyInterpolation.Interpolate; // Helps smooth physics movement
+
+        rpcFunctions = GameObject.Find("RpcFunctions").GetComponent<RpcFunctions>();
+
+    }
 
     public override void OnNetworkSpawn()
     {
@@ -65,6 +73,28 @@ public class CarMovement : NetworkBehaviour
         Move();
         RotateWheels();
         Steer();
+
+        if(rb.velocity.magnitude > 10f)
+        {
+            if (!firePSleft.isPlaying)
+            {
+               rpcFunctions.SetFire(firePSright, firePSleft);
+               rpcFunctions.TurnOnPsServerRpc(true);
+               rpcFunctions.TurnOnPsServerRpc(true);
+            }
+        }
+        else
+        {
+            if (firePSleft.isPlaying)
+            {
+                rpcFunctions.SetFire(firePSright, firePSleft);
+
+                rpcFunctions.TurnOnPsServerRpc(false);
+                rpcFunctions.TurnOnPsServerRpc(false);
+                print("stopped");           
+            }
+        }
+        //print(rb.velocity.magnitude);
     }
 
     void GetInput()
@@ -78,7 +108,9 @@ public class CarMovement : NetworkBehaviour
         if (Mathf.Abs(verticalInput) > 0.1f)
         {
             rb.AddForce(transform.forward * speed * verticalInput * Time.deltaTime, ForceMode.Force);
-        }     
+            
+        }
+        
     }
 
     void Steer()
@@ -100,7 +132,7 @@ public class CarMovement : NetworkBehaviour
 
             // Apply smooth car rotation
             Quaternion targetRotation = Quaternion.Euler(0f, currentSteerAngle * (rb.velocity.magnitude / (speed * 0.003f)), 0f);
-            print(rb.velocity.magnitude);
+            //print(rb.velocity.magnitude);
             rb.MoveRotation(Quaternion.Lerp(rb.rotation, rb.rotation * targetRotation, turnSpeed * Time.deltaTime));
         }
     }
