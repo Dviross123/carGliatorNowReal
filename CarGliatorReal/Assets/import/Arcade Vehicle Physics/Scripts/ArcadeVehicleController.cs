@@ -1,11 +1,18 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Unity.Netcode;
+using Cinemachine;
 
 namespace ArcadeVP
 {
-    public class ArcadeVehicleController : MonoBehaviour
+    public class ArcadeVehicleController : NetworkBehaviour
     {
+        Transform[] spawnPoints;
+        [SerializeField] CinemachineVirtualCamera vc;
+        [SerializeField] AudioListener listener;
+        [SerializeField] ParticleSystem[] dustPs;
+
         public enum groundCheck { rayCast, sphereCaste };
         public enum MovementMode { Velocity, AngularVelocity };
         public MovementMode movementMode;
@@ -51,8 +58,33 @@ namespace ArcadeVP
         private float radius, steeringInput, accelerationInput, brakeInput;
         private Vector3 origin;
 
+        public override void OnNetworkSpawn()
+        {
+            if (IsOwner)
+            {
+                Transform SpawnPointsParent = GameObject.Find("SpawnPoints").transform;
+                int SpawnPointsAmount = SpawnPointsParent.childCount;
+                spawnPoints = new Transform[SpawnPointsAmount];
+                for (int i = 0; i < SpawnPointsAmount; i++)
+                {
+                    spawnPoints[i] = SpawnPointsParent.GetChild(i);
+                }
+                transform.position = spawnPoints[0].position;
+
+                listener.enabled = true;
+                vc.Priority = 1;
+            }
+            else
+            {
+                listener.enabled = false;
+                vc.Priority = 0;
+            }
+
+        
+        }
         private void Start()
         {
+            if (!IsOwner) return;
             radius = rb.GetComponent<SphereCollider>().radius;
             if (movementMode == MovementMode.AngularVelocity)
             {
@@ -62,6 +94,7 @@ namespace ArcadeVP
 
         private void Update()
         {
+            if (!IsOwner) return;
             Visuals();
             AudioManager();
         }
@@ -76,7 +109,7 @@ namespace ArcadeVP
         public void AudioManager()
         {
             engineSound.pitch = Mathf.Lerp(minPitch, MaxPitch, Mathf.Abs(carVelocity.z) / MaxSpeed);
-            if (Mathf.Abs(carVelocity.x) > 10 && grounded())
+            if (Mathf.Abs(carVelocity.x) > 2.6f && grounded())
             {
                 SkidSound.mute = false;
             }
@@ -89,6 +122,7 @@ namespace ArcadeVP
 
         void FixedUpdate()
         {
+            if (!IsOwner) return;
             carVelocity = carBody.transform.InverseTransformDirection(carBody.velocity);
 
             if (Mathf.Abs(carVelocity.x) > 0)
@@ -215,6 +249,28 @@ namespace ArcadeVP
                     0.1f * Time.deltaTime / Time.fixedDeltaTime);
                 }
 
+            }
+
+            if(rb.velocity.magnitude > 15f)
+            {
+                if (!dustPs[0].isEmitting)
+                {
+                   
+                    foreach (ParticleSystem ps in dustPs)
+                    {
+                        ps.Play();
+                    }
+                }
+            }
+            else
+            {
+                if (dustPs[0].isEmitting)
+                {
+                    foreach (ParticleSystem ps in dustPs)
+                    {
+                        ps.Stop();
+                    }
+                }
             }
 
         }
