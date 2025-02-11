@@ -12,6 +12,7 @@ namespace ArcadeVP
         [SerializeField] CinemachineVirtualCamera vc;
         [SerializeField] AudioListener listener;
         [SerializeField] ParticleSystem[] dustPs;
+        [SerializeField] Canvas canvas;
 
         public enum groundCheck { rayCast, sphereCaste };
         public enum MovementMode { Velocity, AngularVelocity };
@@ -62,22 +63,15 @@ namespace ArcadeVP
         {
             if (IsOwner)
             {
-                Transform SpawnPointsParent = GameObject.Find("SpawnPoints").transform;
-                int SpawnPointsAmount = SpawnPointsParent.childCount;
-                spawnPoints = new Transform[SpawnPointsAmount];
-                for (int i = 0; i < SpawnPointsAmount; i++)
-                {
-                    spawnPoints[i] = SpawnPointsParent.GetChild(i);
-                }
-                transform.position = spawnPoints[0].position;
-
                 listener.enabled = true;
                 vc.Priority = 1;
+                canvas.sortingOrder = 1;
             }
             else
             {
                 listener.enabled = false;
                 vc.Priority = 0;
+                canvas.sortingOrder = 0;
             }
 
         
@@ -85,11 +79,24 @@ namespace ArcadeVP
         private void Start()
         {
             if (!IsOwner) return;
+
             radius = rb.GetComponent<SphereCollider>().radius;
             if (movementMode == MovementMode.AngularVelocity)
             {
                 Physics.defaultMaxAngularSpeed = 100;
             }
+
+            print(transform.position);
+            Transform SpawnPointsParent = GameObject.Find("SpawnPoints").transform;
+            int SpawnPointsAmount = SpawnPointsParent.childCount;
+            spawnPoints = new Transform[SpawnPointsAmount];
+            for (int i = 0; i < SpawnPointsAmount; i++)
+            {
+                spawnPoints[i] = SpawnPointsParent.GetChild(i);
+            }
+            print(spawnPoints[0].position);
+            transform.parent.position = spawnPoints[0].position;
+            transform.localPosition = Vector3.zero;
         }
 
         private void Update()
