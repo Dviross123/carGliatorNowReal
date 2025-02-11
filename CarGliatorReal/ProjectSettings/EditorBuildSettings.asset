@@ -14,4 +14,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/multiLahav.unity
     guid: 5ab2b4623e17cb24c87dc09115f18970
+  - enabled: 1
+    path: Assets/Scenes/race (multiplayer) 1.unity
+    guid: 5d1144606189fae45970ff2857e33c4c
   m_configObjects: {}

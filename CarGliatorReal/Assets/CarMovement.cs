@@ -74,12 +74,11 @@ public class CarMovement : NetworkBehaviour
         RotateWheels();
         Steer();
 
-        if(rb.velocity.magnitude > 10f)
+        if(rb.velocity.magnitude > 0.1f)
         {
             if (!firePSleft.isPlaying)
             {
                rpcFunctions.SetFire(firePSright, firePSleft);
-               rpcFunctions.TurnOnPsServerRpc(true);
                rpcFunctions.TurnOnPsServerRpc(true);
             }
         }
@@ -88,13 +87,11 @@ public class CarMovement : NetworkBehaviour
             if (firePSleft.isPlaying)
             {
                 rpcFunctions.SetFire(firePSright, firePSleft);
-
-                rpcFunctions.TurnOnPsServerRpc(false);
                 rpcFunctions.TurnOnPsServerRpc(false);
                 print("stopped");           
             }
         }
-        //print(rb.velocity.magnitude);
+        print(firePSleft.isPlaying);
     }
 
     void GetInput()
