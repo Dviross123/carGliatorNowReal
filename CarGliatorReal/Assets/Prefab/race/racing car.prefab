@@ -521,7 +521,7 @@ MonoBehaviour:
   - {fileID: 3360009845312827975}
   canvas: {fileID: 364310938486743220}
   movementMode: 0
-  GroundCheck: 0
+  GroundCheck: 1
   drivableSurface:
     serializedVersion: 2
     m_Bits: 4294967295

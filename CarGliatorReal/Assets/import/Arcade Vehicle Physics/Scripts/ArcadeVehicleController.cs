@@ -93,11 +93,24 @@ namespace ArcadeVP
             for (int i = 0; i < SpawnPointsAmount; i++)
             {
                 spawnPoints[i] = SpawnPointsParent.GetChild(i);
+                print(spawnPoints[i].name);
             }
-            print(spawnPoints[0].position);
-            transform.parent.position = spawnPoints[0].position;
-            transform.localPosition = Vector3.zero;
+
+            // Ensure the spawn position is correctly set when the player is assigned ownership
+            SetSpawnPosition();
         }
+
+        private void SetSpawnPosition()
+        {
+            if (spawnPoints.Length > 0)
+            {
+                // Pick a random spawn point or choose based on some logic (e.g., round-robin)
+                int spawnIndex = Random.Range(0, spawnPoints.Length);
+                transform.position = spawnPoints[spawnIndex].position;
+                transform.rotation = spawnPoints[spawnIndex].rotation;
+            }
+        }
+
 
         private void Update()
         {
