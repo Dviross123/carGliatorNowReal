@@ -14,7 +14,7 @@ namespace ArcadeVP
         {
             Horizontal = Input.GetAxis("Horizontal");
             Vertical = Input.GetAxis("Vertical");
-            Jump = Input.GetAxis("Jump");
+            Jump = Input.GetAxis("LeftShift");
 
             arcadeVehicleController.ProvideInputs(Horizontal, Vertical, Jump);
         }
