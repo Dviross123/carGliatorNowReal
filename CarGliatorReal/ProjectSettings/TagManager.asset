@@ -4,9 +4,8 @@
 TagManager:
   serializedVersion: 2
   tags:
-  - enemy
-  - fence
   - CheckPoint
+  - SpeedBooster
   layers:
   - Default
   - TransparentFX

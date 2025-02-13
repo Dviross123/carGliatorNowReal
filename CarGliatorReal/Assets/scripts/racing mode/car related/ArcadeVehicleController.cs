@@ -13,6 +13,7 @@ namespace ArcadeVP
         [SerializeField] AudioListener listener;
         [SerializeField] ParticleSystem[] dustPs;
         [SerializeField] Canvas canvas;
+        [SerializeField] Transform StartDirectionPoint;
 
         public enum groundCheck { rayCast, sphereCaste };
         public enum MovementMode { Velocity, AngularVelocity };
@@ -81,6 +82,7 @@ namespace ArcadeVP
             if (!IsOwner) return;
 
             radius = rb.GetComponent<SphereCollider>().radius;
+            StartDirectionPoint = GameObject.Find("StartDirectionPoint").transform;
             if (movementMode == MovementMode.AngularVelocity)
             {
                 Physics.defaultMaxAngularSpeed = 100;
@@ -107,7 +109,7 @@ namespace ArcadeVP
                 // Pick a random spawn point or choose based on some logic (e.g., round-robin)
                 int spawnIndex = Random.Range(0, spawnPoints.Length);
                 transform.position = spawnPoints[spawnIndex].position;
-                transform.rotation = spawnPoints[spawnIndex].rotation;
+                transform.localRotation = StartDirectionPoint.localRotation; ;
             }
         }
 
