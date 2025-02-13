@@ -334,7 +334,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1337f33b3654d9a4fa8f2d3f24ceb6d2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  carController: {fileID: 0}
+  carController: {fileID: 1928727428528750150}
 --- !u!96 &997668916258469625
 TrailRenderer:
   serializedVersion: 3
@@ -5205,7 +5205,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1337f33b3654d9a4fa8f2d3f24ceb6d2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  carController: {fileID: 0}
+  carController: {fileID: 1928727428528750150}
 --- !u!96 &5782170615891405146
 TrailRenderer:
   serializedVersion: 3
@@ -10682,7 +10682,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1337f33b3654d9a4fa8f2d3f24ceb6d2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  carController: {fileID: 0}
+  carController: {fileID: 1928727428528750150}
 --- !u!96 &7958260001351006276
 TrailRenderer:
   serializedVersion: 3
@@ -16311,7 +16311,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1337f33b3654d9a4fa8f2d3f24ceb6d2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  carController: {fileID: 0}
+  carController: {fileID: 1928727428528750150}
 --- !u!96 &512055901035943686
 TrailRenderer:
   serializedVersion: 3
