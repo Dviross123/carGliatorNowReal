@@ -45,12 +45,15 @@ Material:
     - _QueueControl: 0
     - _QueueOffset: 0
     - _metalic: 0
-    - _scale: 2.4
+    - _noise_size: 3.71
+    - _noise_speed: 0.1
+    - _scale: 1
     - _smoothness: 0
     - _speed: 3.05
     m_Colors:
-    - _offset: {r: 1, g: 1, b: 0, a: 0}
-    - _tiling: {r: 1, g: 2.85, b: 0, a: 0}
+    - _Color: {r: 0.32075468, g: 0.19422847, b: 0.11317187, a: 1}
+    - _offset: {r: 70.32, g: 1, b: 0, a: 0}
+    - _tiling: {r: 1, g: 21.23, b: 0, a: 0}
     - _tilingg: {r: 11, g: 11, b: 11, a: 0}
   m_BuildTextureStacks: []
 --- !u!114 &1458844849873084011

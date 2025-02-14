@@ -14,24 +14,34 @@ using TMPro;
 public class TestRelay : MonoBehaviour
 {
     [SerializeField] private Button HostBtn;
+    [SerializeField] private Image bg;
     [SerializeField] private Button ClientBtn;
     [SerializeField] private TextMeshProUGUI debugger;
     [SerializeField] private TextMeshProUGUI joinCodeString;
+    [SerializeField] private GameObject field;
     string joinCode;
+    bool isHost;
 
     private void Awake()
     {
-        HostBtn.onClick.AddListener(() =>
+        if (isHost)
         {
             CreateRelay();
-            
-        });
-
-        ClientBtn.onClick.AddListener(() =>
+        }
+        else
         {
             joinCode = joinCodeString.text;
             JoinRelay(joinCode);
-        });
+        }
+    }
+
+    void CloseUi()
+    {
+        bg.gameObject.SetActive(false);
+        HostBtn.gameObject.SetActive(false);
+        ClientBtn.gameObject.SetActive(false);
+        debugger.gameObject.SetActive(false);
+        field.SetActive(false);
     }
 
     private async void Start()
@@ -41,7 +51,7 @@ public class TestRelay : MonoBehaviour
         AuthenticationService.Instance.SignedIn += () => {
             Debug.Log("sign in:" + AuthenticationService.Instance.PlayerId);
         };
-        await AuthenticationService.Instance.SignInAnonymouslyAsync();       
+        await AuthenticationService.Instance.SignInAnonymouslyAsync();
     }
 
     private async void CreateRelay()
@@ -49,7 +59,7 @@ public class TestRelay : MonoBehaviour
         try
         {
             //max players not containing the host
-            Allocation allcation = await RelayService.Instance.CreateAllocationAsync(1);
+            Allocation allcation = await RelayService.Instance.CreateAllocationAsync(3);
             string joinCode = await RelayService.Instance.GetJoinCodeAsync(allcation.AllocationId);
             Debug.Log("join code:" + joinCode);
 
@@ -58,12 +68,14 @@ public class TestRelay : MonoBehaviour
             NetworkManager.Singleton.GetComponent<UnityTransport>().SetRelayServerData(relayServerData);
             NetworkManager.Singleton.StartHost();
             debugger.text = joinCode;
+            //   CloseUi();
+
         }
-        catch(RelayServiceException e)
+        catch (RelayServiceException e)
         {
             Debug.Log(e);
         }
-       
+
     }
 
     private async void JoinRelay(string joinCode)
@@ -76,14 +88,14 @@ public class TestRelay : MonoBehaviour
             RelayServerData relayServerData = new RelayServerData(joinAlloaction, "dtls");
             NetworkManager.Singleton.GetComponent<UnityTransport>().SetRelayServerData(relayServerData);
             NetworkManager.Singleton.StartClient();
+            //  CloseUi();
 
         }
         catch (RelayServiceException e)
         {
-            Debug.Log(e);          
+            Debug.Log(e);
         }
 
     }
-
-
 }
+

@@ -8,4 +8,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/race (multiplayer) 1.unity
     guid: 5d1144606189fae45970ff2857e33c4c
+  - enabled: 1
+    path: Assets/Scenes/Lobby.unity
+    guid: d4c716fc49da4c54fb0f2fee88cff05b
   m_configObjects: {}

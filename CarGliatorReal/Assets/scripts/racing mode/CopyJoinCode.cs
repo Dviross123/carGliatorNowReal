@@ -2,12 +2,23 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using UnityEngine.UI;
+using UnityEngine.EventSystems;
 
-public class CopyJoinCode : MonoBehaviour
+public class CopyJoinCode : MonoBehaviour, IPointerClickHandler
 {
     [SerializeField] TextMeshProUGUI text;
-    public void CopyToClipboard()
+
+    public void OnPointerClick(PointerEventData eventData)
     {
-        GUIUtility.systemCopyBuffer = text.text;
+        CopyToClipboard();
     }
+
+    void CopyToClipboard()
+    {
+      string code = text.text.Substring(text.text.Length - 6); // Get last 6 characters
+      GUIUtility.systemCopyBuffer = code;       
+    }
+
+   
 }
