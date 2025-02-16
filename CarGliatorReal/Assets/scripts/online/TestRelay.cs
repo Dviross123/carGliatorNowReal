@@ -10,6 +10,8 @@ using Unity.Networking.Transport.Relay;
 using Unity.Netcode.Transports.UTP;
 using UnityEngine.UI;
 using TMPro;
+using Unity.Services.Lobbies;
+using Unity.Services.Lobbies.Models;
 
 public class TestRelay : MonoBehaviour
 {
@@ -21,6 +23,9 @@ public class TestRelay : MonoBehaviour
     [SerializeField] private GameObject field;
     string joinCode;
     bool isHost;
+
+
+    Lobby currentLobby;
 
     private void Awake()
     {
@@ -44,16 +49,6 @@ public class TestRelay : MonoBehaviour
             Debug.Log("sign in:" + AuthenticationService.Instance.PlayerId);
         };
         await AuthenticationService.Instance.SignInAnonymouslyAsync();
-
-        if (isHost)
-        {
-            CreateRelay();
-        }
-        else
-        {
-            joinCode = joinCodeString.text;
-            JoinRelay(joinCode);
-        }
     }
 
     private async void CreateRelay()
