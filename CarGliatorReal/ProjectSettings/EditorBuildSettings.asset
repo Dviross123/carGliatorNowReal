@@ -6,9 +6,12 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Scenes/race (multiplayer) 1.unity
-    guid: 5d1144606189fae45970ff2857e33c4c
+    path: Assets/Scenes/menu.unity
+    guid: d4c716fc49da4c54fb0f2fee88cff05b
   - enabled: 1
     path: Assets/Scenes/Lobby.unity
-    guid: d4c716fc49da4c54fb0f2fee88cff05b
+    guid: d48b9cce2ea0d4c40b58c7bed0da896a
+  - enabled: 1
+    path: Assets/Scenes/race.unity
+    guid: 5d1144606189fae45970ff2857e33c4c
   m_configObjects: {}

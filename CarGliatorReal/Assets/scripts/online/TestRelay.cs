@@ -24,15 +24,7 @@ public class TestRelay : MonoBehaviour
 
     private void Awake()
     {
-        if (isHost)
-        {
-            CreateRelay();
-        }
-        else
-        {
-            joinCode = joinCodeString.text;
-            JoinRelay(joinCode);
-        }
+      
     }
 
     void CloseUi()
@@ -52,6 +44,16 @@ public class TestRelay : MonoBehaviour
             Debug.Log("sign in:" + AuthenticationService.Instance.PlayerId);
         };
         await AuthenticationService.Instance.SignInAnonymouslyAsync();
+
+        if (isHost)
+        {
+            CreateRelay();
+        }
+        else
+        {
+            joinCode = joinCodeString.text;
+            JoinRelay(joinCode);
+        }
     }
 
     private async void CreateRelay()
