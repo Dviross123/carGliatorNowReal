@@ -4,7 +4,9 @@ using Unity.Services.Authentication;
 using Unity.Services.Core;
 using Unity.Services.Lobbies;
 using Unity.Services.Lobbies.Models;
+using UnityEngine.SceneManagement;
 using UnityEngine;
+using TMPro;
 
 public class TestLobby : MonoBehaviour
 {
@@ -16,10 +18,13 @@ public class TestLobby : MonoBehaviour
     private float lobbyUpdateTimer;
     private string playerName;
 
+    [SerializeField] TextMeshProUGUI debugger;
+
     private async void Start()
     {
         await UnityServices.InitializeAsync();
 
+        if (AuthenticationService.Instance.IsSignedIn) return;
         AuthenticationService.Instance.SignedIn += () =>
         {
             Debug.Log("Signed in " + AuthenticationService.Instance.PlayerId);
@@ -27,7 +32,7 @@ public class TestLobby : MonoBehaviour
 
         await AuthenticationService.Instance.SignInAnonymouslyAsync();
         playerName = "Player" + UnityEngine.Random.Range(10, 99);
-        Debug.Log(playerName);
+        Debug.Log(playerName);     
     }
 
     private void Update()
@@ -37,7 +42,7 @@ public class TestLobby : MonoBehaviour
     }
 
 
-    private async void CreateLobby()
+    public async void CreateLobby()
     {
         try
         {
@@ -54,6 +59,7 @@ public class TestLobby : MonoBehaviour
             joinedLobby = hostLobby;
             PrintPlayers(hostLobby);
 
+            SceneManager.LoadScene("Lobby");
             Debug.Log("Lobby Created " + lobby.Name + " " + lobby.MaxPlayers + " " + lobby.LobbyCode);
         }
         catch (LobbyServiceException e)
@@ -62,8 +68,9 @@ public class TestLobby : MonoBehaviour
         }
     }
 
-    private async void JoinLobbyByCode(string code)
+    public async void JoinLobbyByCode()
     {
+        string code = UserData.codeEntered.Substring(0, 6);
         try
         {
             JoinLobbyByCodeOptions joinLobbyByCodeOptions = new JoinLobbyByCodeOptions
@@ -75,10 +82,11 @@ public class TestLobby : MonoBehaviour
             joinedLobby = lobby;
             Debug.Log("joined lobby with code:" + code);
             PrintPlayers(joinedLobby);
+            SceneManager.LoadScene("Lobby");
         }
         catch (LobbyServiceException e)
         {
-            Debug.Log(e);
+            debugger.text = e.ToString();
         }
     }
 
@@ -128,8 +136,6 @@ public class TestLobby : MonoBehaviour
         }
     }
 
-
-
     private Player GetPlayer()
     {
         return new Player
@@ -152,7 +158,6 @@ public class TestLobby : MonoBehaviour
     {
         PrintPlayers(joinedLobby);
     }
-
 
     private async void LeaveLobby()
     {
