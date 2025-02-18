@@ -67,4 +67,9 @@ public class Btn : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
     {
         UserData.codeEntered =  text.text.Substring(0, 6);
     }
+
+    public void StartGame(TestLobby testLobby)
+    {
+        testLobby.StartGame();
+    }
 }

@@ -15,22 +15,15 @@ using Unity.Services.Lobbies.Models;
 
 public class TestRelay : MonoBehaviour
 {
+    //continue from gpt blocking calls
     [SerializeField] private Button HostBtn;
     [SerializeField] private Image bg;
     [SerializeField] private Button ClientBtn;
     [SerializeField] private TextMeshProUGUI debugger;
     [SerializeField] private TextMeshProUGUI joinCodeString;
     [SerializeField] private GameObject field;
-    string joinCode;
-    bool isHost;
-
 
     Lobby currentLobby;
-
-    private void Awake()
-    {
-      
-    }
 
     void CloseUi()
     {
@@ -45,54 +38,70 @@ public class TestRelay : MonoBehaviour
     {
         await UnityServices.InitializeAsync();
 
-        AuthenticationService.Instance.SignedIn += () => {
-            Debug.Log("sign in:" + AuthenticationService.Instance.PlayerId);
-        };
-        await AuthenticationService.Instance.SignInAnonymouslyAsync();
+        // Fetch the current lobby
+        currentLobby = await Lobbies.Instance.GetLobbyAsync(TestLobby.lobbyId);
+
+        if (AuthenticationService.Instance.PlayerId == currentLobby.HostId)
+        {
+            CreateRelay();
+        }
+        else
+        {
+            JoinRelay();
+        }
     }
+
 
     private async void CreateRelay()
     {
         try
         {
-            //max players not containing the host
-            Allocation allcation = await RelayService.Instance.CreateAllocationAsync(3);
-            string joinCode = await RelayService.Instance.GetJoinCodeAsync(allcation.AllocationId);
-            Debug.Log("join code:" + joinCode);
+            Allocation allocation = await RelayService.Instance.CreateAllocationAsync(3);
+            string relayJoinCode = await RelayService.Instance.GetJoinCodeAsync(allocation.AllocationId);
+            Debug.Log("Relay join code: " + relayJoinCode);
 
+            // Update the lobby with the relay join code
+            await Lobbies.Instance.UpdateLobbyAsync(currentLobby.Id, new UpdateLobbyOptions
+            {
+                Data = new Dictionary<string, DataObject>
+            {
+                { "RelayJoinCode", new DataObject(DataObject.VisibilityOptions.Member, relayJoinCode) }
+            }
+            });
 
-            RelayServerData relayServerData = new RelayServerData(allcation, "dtls");
+            // Set up Relay transport and start hosting
+            RelayServerData relayServerData = new RelayServerData(allocation, "dtls");
             NetworkManager.Singleton.GetComponent<UnityTransport>().SetRelayServerData(relayServerData);
             NetworkManager.Singleton.StartHost();
-            debugger.text = joinCode;
-            //   CloseUi();
 
+            // Update UI
+            debugger.text = relayJoinCode;
         }
         catch (RelayServiceException e)
         {
-            Debug.Log(e);
+            Debug.LogError(e);
         }
-
     }
 
-    private async void JoinRelay(string joinCode)
+
+    private async void JoinRelay()
     {
         try
         {
-            joinCode = joinCode.Substring(0, 6);
-            Debug.Log("joined relay with:" + joinCode);
-            JoinAllocation joinAlloaction = await RelayService.Instance.JoinAllocationAsync(joinCode.ToString());
-            RelayServerData relayServerData = new RelayServerData(joinAlloaction, "dtls");
+            // Get the relay join code from the lobby data
+            string relayJoinCode = currentLobby.Data["RelayJoinCode"].Value;
+            Debug.Log("Joining relay with code: " + relayJoinCode);
+
+            JoinAllocation joinAllocation = await RelayService.Instance.JoinAllocationAsync(relayJoinCode);
+            RelayServerData relayServerData = new RelayServerData(joinAllocation, "dtls");
             NetworkManager.Singleton.GetComponent<UnityTransport>().SetRelayServerData(relayServerData);
             NetworkManager.Singleton.StartClient();
-            //  CloseUi();
-
         }
         catch (RelayServiceException e)
         {
-            Debug.Log(e);
+            Debug.LogError(e);
         }
-
     }
+
 }
 
