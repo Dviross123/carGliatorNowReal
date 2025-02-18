@@ -12,6 +12,7 @@ using UnityEngine.UI;
 using TMPro;
 using Unity.Services.Lobbies;
 using Unity.Services.Lobbies.Models;
+using System.Threading.Tasks;
 
 public class TestRelay : MonoBehaviour
 {
@@ -37,8 +38,8 @@ public class TestRelay : MonoBehaviour
     private async void Start()
     {
         await UnityServices.InitializeAsync();
+        await Task.Delay(1000);
 
-        // Fetch the current lobby
         currentLobby = await Lobbies.Instance.GetLobbyAsync(TestLobby.lobbyId);
 
         if (AuthenticationService.Instance.PlayerId == currentLobby.HostId)
@@ -50,6 +51,7 @@ public class TestRelay : MonoBehaviour
             JoinRelay();
         }
     }
+
 
 
     private async void CreateRelay()

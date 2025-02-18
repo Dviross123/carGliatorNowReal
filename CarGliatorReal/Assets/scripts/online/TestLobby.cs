@@ -127,34 +127,32 @@ public class TestLobby : MonoBehaviour
     }
 
    private async void HandleLobbyPollForUpdates()
-{
-    if (joinedLobby != null)
-    {
-        lobbyUpdateTimer -= Time.deltaTime;
-        if (lobbyUpdateTimer <= 0f)
-        {
-            lobbyUpdateTimer = 1.1f;
-
-            try
-            {
-                Lobby lobby = await LobbyService.Instance.GetLobbyAsync(joinedLobby.Id);
-                joinedLobby = lobby;
-                UpdateLobbyUI();
-
-                // Null check before accessing Data
-                if (joinedLobby.Data.ContainsKey("GameStarted") && joinedLobby.Data["GameStarted"].Value == "true")
-                {
-                    SceneManager.LoadScene("race");
-                }
-            }
-            catch (LobbyServiceException e)
-            {
-                Debug.LogWarning("Failed to update lobby: " + e);
-            }
-        }
-    }
-}
-
+   {
+      if (joinedLobby != null)
+      {
+          lobbyUpdateTimer -= Time.deltaTime;
+          if (lobbyUpdateTimer <= 0f)
+          {
+              lobbyUpdateTimer = 1.1f;
+    
+              try
+              {
+                  Lobby lobby = await LobbyService.Instance.GetLobbyAsync(joinedLobby.Id);
+                  joinedLobby = lobby;
+                  UpdateLobbyUI();
+    
+                  if (joinedLobby.Data.ContainsKey("GameStarted") && joinedLobby.Data["GameStarted"].Value == "true")
+                  {
+                      SceneManager.LoadScene("race");
+                  }
+              }
+              catch (LobbyServiceException e)
+              {
+                  Debug.LogWarning("Failed to update lobby: " + e);
+              }
+          }
+      }
+   }
 
     private void UpdateLobbyUI()
     {
